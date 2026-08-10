@@ -113,7 +113,6 @@ The application includes several security measures:
 
 At a high level, Career Copilot follows this flow:
 
-```text
                     ┌─────────────────────┐
                     │        User         │
                     └──────────┬──────────┘
@@ -145,10 +144,11 @@ At a high level, Career Copilot follows this flow:
        │ Private Resume   │
        │ Storage          │
        └──────────────────┘
+---
 
 ## Project Structure
 
-```text
+
 career-copilot/
 ├── app/                    # Next.js application
 │   ├── api/                # Backend API routes
@@ -166,6 +166,8 @@ career-copilot/
 ├── package.json
 ├── prisma.config.ts
 └── README.md
+---
+
 node --version
 npm --version
 
@@ -202,3 +204,17 @@ On Windows PowerShell, you can also use:
 **Database Setup**
 Career Copilot uses PostgreSQL with Prisma ORM.
 The Prisma schema is located at:
+prisma/schema.prisma
+Database migrations are stored in:
+prisma/migrations/
+After configuring your PostgreSQL connection, apply the existing migrations:
+npx prisma migrate deploy
+Then generate the Prisma client:
+Then generate the Prisma client:
+Make sure your PostgreSQL database is running and the connection strings in your environment file are valid before running these commands.
+**Run the Application**
+Start the development server:
+npm run dev
+Then open:
+
+http://localhost:3000

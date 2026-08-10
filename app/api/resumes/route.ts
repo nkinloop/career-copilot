@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { put } from "@vercel/blob";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUserId } from "@/lib/current-user";
 
@@ -41,13 +42,20 @@ export async function POST(request: Request) {
   }
 
   try {
-    // Quick Content-Length check to avoid parsing very large uploads
     const contentLengthHeader = request.headers.get("content-length");
-    const maxUploadBytes = 6 * 1024 * 1024; // 6MB to allow multipart overhead
+    const maxUploadBytes = 6 * 1024 * 1024;
+
     if (contentLengthHeader) {
       const contentLength = Number(contentLengthHeader);
-      if (!Number.isNaN(contentLength) && contentLength > maxUploadBytes) {
-        return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+
+      if (
+        !Number.isNaN(contentLength) &&
+        contentLength > maxUploadBytes
+      ) {
+        return NextResponse.json(
+          { error: "Payload too large" },
+          { status: 413 }
+        );
       }
     }
 
@@ -80,41 +88,39 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const crypto = await import("crypto");
-    const path = await import("path");
-    const fs = await import("fs/promises");
-
-    const uploadDir = path.join(process.cwd(), "private", "uploads", "resumes");
-    await fs.mkdir(uploadDir, { recursive: true });
-
-    const fileName = `${crypto.randomUUID()}.pdf`;
-    const filePath = path.resolve(uploadDir, fileName);
-
-    // ensure filePath is inside uploadDir
-    const resolvedUploadDir = path.resolve(uploadDir);
-    if (!filePath.startsWith(resolvedUploadDir)) {
-      return NextResponse.json({ error: "Invalid file path" }, { status: 400 });
-    }
-
-    // Enforce server-side file size limit (5MB) and basic PDF magic bytes check
     if (buffer.length > 5 * 1024 * 1024) {
-      return NextResponse.json({ error: "Maximum file size is 5MB" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Maximum file size is 5MB" },
+        { status: 400 }
+      );
     }
 
     const magic = buffer.slice(0, 4).toString("utf8");
+
     if (magic !== "%PDF") {
-      return NextResponse.json({ error: "Uploaded file is not a valid PDF" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Uploaded file is not a valid PDF" },
+        { status: 400 }
+      );
     }
 
-    await fs.writeFile(filePath, buffer);
+    const crypto = await import("crypto");
+    const fileName = `${crypto.randomUUID()}.pdf`;
 
-    const fileUrl = `/private/uploads/resumes/${fileName}`;
+    // Keep each user's resumes in their own folder.
+    const blobPath = `resumes/${userId}/${fileName}`;
+
+    const blob = await put(blobPath, buffer, {
+      access: "private",
+      contentType: "application/pdf",
+      addRandomSuffix: false,
+    });
 
     const resume = await prisma.resume.create({
       data: {
         userId,
         title: title.trim(),
-        fileUrl,
+        fileUrl: blob.url,
       },
     });
 

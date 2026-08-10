@@ -1,304 +1,297 @@
-# Career Copilot
+# Career Copilot 🚀
 
-> An AI-powered career assistant for resume intelligence, job discovery, resume-job matching, interview preparation, and personalized career planning.
+An AI-powered personal career workspace that helps job seekers manage their **resumes, skills, job opportunities, applications, interview preparation, and personalized career growth** from one place.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://www.typescriptlang.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql)](https://www.postgresql.org/)
-[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma)](https://www.prisma.io/)
-[![Google Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?logo=google)](https://ai.google.dev/)
+🔗 **Live Demo:** https://ca4ee4.vercel.app
 
 ---
 
-## Overview
+## ✨ Features
 
-Career Copilot is an AI-powered career workspace built with **Next.js**.
+### 📄 Resume Management
 
-The application combines resume intelligence, job discovery, AI-powered recommendations, interview preparation, and career planning into a single platform.
+* Upload and manage multiple resumes.
+* PDF validation with file-size limits.
+* Secure user-specific resume storage.
+* Resume files are stored using **Vercel Blob** for production-ready cloud storage.
+* View uploaded resumes directly from the application.
+* AI-powered resume analysis.
 
-The goal is to provide users with a centralized workspace where they can understand their professional profile, evaluate career opportunities, and receive AI-assisted guidance.
+### 🤖 AI Resume Analysis
 
----
+Career Copilot analyzes uploaded resumes and extracts:
 
-## Features
+* Professional summary
+* Skills
+* Strengths
+* Weaknesses
+* Experience
+* Education
+* Improvement suggestions
 
-### Resume Management
+Detected skills can also be automatically associated with the user's skill profile.
 
-- Upload PDF resumes
-- Server-side PDF validation
-- 5 MB upload limit
-- Secure server-generated filenames
-- Private resume storage
-- Authenticated resume downloads
-- Resume ownership validation
-- AI-powered resume analysis
-- Resume skill extraction and evaluation
+### 🎯 Smart Job Matching
 
-### AI Career Copilot
+* Browse available job opportunities.
+* View detailed job information.
+* Analyze job descriptions.
+* Match your skills against job requirements.
+* Get AI-powered recommendations for suitable opportunities.
 
-Career Copilot uses Google's Gemini API for several AI-powered features:
+### 🧠 AI Career Copilot
 
-- Resume analysis
-- Job recommendations
-- Resume-job matching
-- Interview preparation
-- Career roadmap generation
-- Career-related conversational assistance
+An AI-powered workspace designed to provide personalized career assistance based on the user's career data.
 
-### Job Discovery
+### 📊 Dashboard
 
-Users can:
+The dashboard provides an overview of:
 
-- Browse available job opportunities
-- View job details
-- Evaluate resume-job compatibility
-- Generate personalized job recommendations
-- Analyze how their skills align with specific roles
+* Career progress
+* Resume information
+* Skills
+* Job applications
+* Recommended opportunities
+* Career insights
 
-### Interview Preparation
+### 💼 Application Tracking
 
-The application can generate AI-powered interview preparation material based on a user's career profile and target job.
+Track job applications and organize your job-search workflow from a centralized dashboard.
 
-### Career Roadmaps
+### 🛣️ Career Roadmap
 
-Users can generate personalized career roadmaps designed around their current skills, career information, and target direction.
+Generate and manage a personalized career roadmap based on your skills, goals, and career direction.
 
-### User Profile & Skills
+### 🎤 Interview Preparation
 
-Users can manage career-related information and skills that are used by the application to personalize recommendations and AI-generated content.
+Practice interview-related questions and use AI-powered assistance to prepare for job interviews.
 
-### Authentication
+### 🧩 Skill Management
 
-The application uses **NextAuth** for authentication.
+* Track existing skills.
+* Add and manage skills.
+* Automatically save skills detected from resume analysis.
+* Use skills for job matching and career recommendations.
 
-Protected API routes derive the authenticated user's identity from the server-side session instead of trusting user IDs supplied by the client.
+### 🔐 Authentication
 
-### Interface
+Secure authentication system with:
 
-The application uses a modern dark interface with a glassmorphism-inspired visual design.
-
----
-
-# Tech Stack
-
-## Frontend
-
-- Next.js 16
-- React 19
-- TypeScript
-- Tailwind CSS
-- Lucide React
-- Next Themes
-
-## Backend
-
-- Next.js App Router
-- Next.js API Routes
-- NextAuth
-- Google Gemini API
-
-## Database
-
-- PostgreSQL
-- Prisma ORM
-- Prisma PostgreSQL Adapter
-
-## Resume Processing
-
-- `unpdf`
-- Server-side filesystem storage
-- PDF validation
-- Secure file handling
+* Credentials-based authentication
+* Password hashing with bcrypt
+* Session management using NextAuth
+* Protected application routes
 
 ---
 
-# Architecture
+## 🏗️ Tech Stack
 
-At a high level, Career Copilot follows this flow:
+### Frontend
+
+* **Next.js 16**
+* **React 19**
+* **TypeScript**
+* **Tailwind CSS**
+* **Lucide React**
+
+### Backend
+
+* **Next.js App Router**
+* **Next.js API Routes**
+* **NextAuth.js**
+* **Prisma ORM**
+
+### Database
+
+* **PostgreSQL**
+* **Supabase PostgreSQL**
+* **Prisma Client**
+* **Prisma PostgreSQL Adapter**
+
+### AI
+
+* **Google Gemini API**
+* **@google/genai**
+
+Used for:
+
+* Resume analysis
+* Job analysis
+* Job matching
+* Career recommendations
+* AI career assistance
+
+### File Storage
+
+* **Vercel Blob**
+
+Resume files are stored in cloud storage instead of the server's local filesystem, making uploads compatible with Vercel's serverless deployment environment.
+
+### PDF Processing
+
+* **unpdf**
+
+Used to extract text from uploaded PDF resumes before sending the relevant content to the AI model.
+
+---
+
+## 🏛️ Architecture
 
 ```text
-                    ┌─────────────────────┐
-                    │        User         │
-                    └──────────┬──────────┘
+                    ┌──────────────────────┐
+                    │      Career Copilot  │
+                    │      Next.js App     │
+                    └──────────┬───────────┘
                                │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Next.js Frontend  │
-                    │  React + Tailwind   │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │   Next.js API Routes│
-                    │                     │
-                    │ Authentication      │
-                    │ Authorization       │
-                    │ Business Logic      │
-                    └───────┬───────┬─────┘
-                            │       │
-                 ┌──────────┘       └──────────┐
-                 ▼                             ▼
-       ┌──────────────────┐          ┌──────────────────┐
-       │   PostgreSQL     │          │   Google Gemini  │
-       │   + Prisma       │          │       API        │
-       └─────────┬────────┘          └──────────────────┘
-                 │
-                 ▼
-       ┌──────────────────┐
-       │ Private Resume   │
-       │ Storage          │
-       └──────────────────┘
+             ┌─────────────────┼─────────────────┐
+             │                 │                 │
+             ▼                 ▼                 ▼
+      ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+      │ Next.js API │   │  NextAuth   │   │ Gemini AI   │
+      │   Routes    │   │             │   │             │
+      └──────┬──────┘   └─────────────┘   └─────────────┘
+             │
+       ┌─────┴──────────────┐
+       │                    │
+       ▼                    ▼
+┌───────────────┐    ┌───────────────┐
+│    Prisma     │    │  Vercel Blob  │
+│  PostgreSQL   │    │ Resume Storage│
+└───────┬───────┘    └───────────────┘
+        │
+        ▼
+┌─────────────────┐
+│ Supabase        │
+│ PostgreSQL      │
+└─────────────────┘
 ```
 
 ---
 
-# Project Structure
+## 📁 Project Structure
 
 ```text
 career-copilot/
-├── app/                    # Next.js application
-│   ├── api/                # Backend API routes
-│   ├── dashboard/          # Dashboard pages
-│   ├── onboarding/         # User onboarding
+│
+├── app/
+│   ├── ai-copilot/
+│   ├── applications/
+│   ├── dashboard/
+│   ├── interview/
+│   ├── jobs/
+│   ├── login/
+│   ├── onboarding/
+│   ├── profile/
+│   ├── resume/
+│   ├── roadmap/
+│   ├── signup/
+│   ├── skills/
+│   │
+│   └── api/
+│       ├── ai-copilot/
+│       ├── applications/
+│       ├── auth/
+│       ├── dashboard/
+│       ├── interview/
+│       ├── jobs/
+│       ├── onboarding/
+│       ├── profile/
+│       ├── resumes/
+│       ├── roadmap/
+│       └── users/
+│
+├── components/
+│   ├── dashboard/
 │   └── ...
-├── components/             # Reusable UI components
-├── lib/                    # Database, authentication and utilities
-├── prisma/                 # Prisma schema and migrations
-├── private/                # Private resume storage
-├── public/                 # Public static assets
-├── types/                  # TypeScript type definitions
-├── auth.ts                 # NextAuth configuration
-├── proxy.ts                # Protected route handling
+│
+├── lib/
+│   ├── ai-errors.ts
+│   ├── current-user.ts
+│   ├── prisma.ts
+│   └── ...
+│
+├── prisma/
+│   └── schema.prisma
+│
+├── public/
+│
+├── .env.local
+├── next.config.ts
 ├── package.json
 ├── prisma.config.ts
+├── tsconfig.json
 └── README.md
 ```
 
 ---
 
-# Prerequisites
+## ⚙️ Getting Started
 
-Before running Career Copilot locally, make sure you have:
-
-- **Node.js 20 or later**
-- **npm**
-- **PostgreSQL**
-- **Google Gemini API key**
-
-Check your installed versions:
-
-```bash
-node --version
-npm --version
-```
-
----
-
-# Getting Started
-
-## 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/nkinloop/career-copilot.git
 cd career-copilot
 ```
 
-## 2. Install Dependencies
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-## 3. Configure Environment Variables
+### 3. Configure environment variables
 
-Create a `.env.local` file in the project root.
-
-Add:
+Create a `.env.local` file:
 
 ```env
 DATABASE_URL="your_postgresql_connection_string"
-DIRECT_URL="your_postgresql_direct_connection_string"
+
+NEXTAUTH_SECRET="your_nextauth_secret"
+NEXTAUTH_URL="http://localhost:3000"
+
 GEMINI_API_KEY="your_gemini_api_key"
-AUTH_SECRET="your_random_secret"
+
+BLOB_READ_WRITE_TOKEN="your_vercel_blob_token"
 ```
 
-### Environment Variables
+Depending on the enabled authentication/database configuration, additional environment variables may be required.
 
-| Variable | Purpose |
-|---|---|
-| `DATABASE_URL` | PostgreSQL database connection |
-| `DIRECT_URL` | Direct PostgreSQL connection used by Prisma |
-| `GEMINI_API_KEY` | Google Gemini API access |
-| `AUTH_SECRET` | Secret used for authentication and session security |
-
-> **Important:** Use your own database credentials and Gemini API key when running the project locally. Never use another developer's credentials.
+> Never commit `.env`, `.env.local`, API keys, database credentials, or other secrets to GitHub.
 
 ---
 
-# Generate an Authentication Secret
+## 🗄️ Database Setup
 
-You can generate a secure random authentication secret with:
+The project uses Prisma with PostgreSQL.
 
-```bash
-openssl rand -base64 32
-```
-
-On Windows PowerShell:
-
-```powershell
-[Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))
-```
-
-Use the generated value for:
-
-```env
-AUTH_SECRET="your_generated_secret"
-```
-
----
-
-# Database Setup
-
-Career Copilot uses **PostgreSQL** with **Prisma ORM**.
-
-The Prisma schema is located at:
-
-```text
-prisma/schema.prisma
-```
-
-Database migrations are stored in:
-
-```text
-prisma/migrations/
-```
-
-After configuring your PostgreSQL connection, apply the existing migrations:
-
-```bash
-npx prisma migrate deploy
-```
-
-Then generate the Prisma client:
+Generate the Prisma client:
 
 ```bash
 npx prisma generate
 ```
 
-Make sure your PostgreSQL database is running and the connection strings in your environment file are valid before running these commands.
+Apply the database schema:
+
+```bash
+npx prisma db push
+```
+
+For development, you can inspect the database using:
+
+```bash
+npx prisma studio
+```
 
 ---
 
-# Run the Application
-
-Start the development server:
+## ▶️ Run the Development Server
 
 ```bash
 npm run dev
 ```
 
-Then open:
+Open:
 
 ```text
 http://localhost:3000
@@ -306,15 +299,23 @@ http://localhost:3000
 
 ---
 
-# Production Build
+## 🏭 Production Build
 
-Create a production build:
+The project uses the following build command:
 
 ```bash
 npm run build
 ```
 
-Start the production server:
+The build performs:
+
+```text
+Prisma Generate
+      ↓
+Next.js Production Build
+```
+
+Start the production server locally with:
 
 ```bash
 npm start
@@ -322,253 +323,268 @@ npm start
 
 ---
 
-# Using Google Gemini
+## ☁️ Deployment
 
-Several Career Copilot features use Google's Gemini API:
+The application is deployed using **Vercel**.
 
-- Resume analysis
-- Job recommendations
-- Resume-job matching
-- Interview preparation
-- Career roadmap generation
-- AI career assistance
+### Vercel Configuration
 
-The Gemini API key is accessed server-side through:
-
-```env
-GEMINI_API_KEY="your_gemini_api_key"
-```
-
-The API key should:
-
-- Never be hardcoded into frontend code
-- Never be committed to GitHub
-- Never be exposed to the browser
-- Be stored only in environment variables
-
-To use the AI features locally, create your own Gemini API key and configure it in `.env.local`.
-
----
-
-# Security
-
-Career Copilot includes several server-side security protections.
-
-## Authentication
-
-Protected pages and API routes require authentication.
-
-## Authorization
-
-API routes derive the authenticated user's identity from the server-side session rather than trusting a user ID supplied by the client.
-
-This helps prevent unauthorized access to another user's resources.
-
-## Resume Security
-
-Uploaded resumes are:
-
-- Validated as PDFs
-- Limited to 5 MB
-- Stored using server-generated filenames
-- Stored outside publicly accessible paths
-- Accessible only through authenticated endpoints
-- Checked for ownership before access
-
-## PDF Validation
-
-Uploaded files are validated server-side rather than relying only on the filename or MIME type.
-
-## Path Traversal Protection
-
-Resume file paths are resolved against controlled server directories and sanitized before filesystem access.
-
-## API Error Handling
-
-API responses avoid exposing sensitive internal information such as:
-
-- Internal exception messages
-- Raw AI/provider responses
-- Database errors
-- Filesystem errors
-- Sensitive implementation details
-
-## Server-Side Identity
-
-Ownership-sensitive API operations derive the current user's ID from the authenticated server-side session.
-
-Client-provided user IDs are not trusted for ownership decisions.
-
----
-
-# Environment & Secrets
-
-The following files should **never** be committed to GitHub:
+Recommended settings:
 
 ```text
-.env
-.env.local
+Framework Preset: Next.js
+Root Directory: ./
+Build Command: npm run build
+Output Directory: .next
+Install Command: npm install
 ```
 
-The repository's `.gitignore` excludes environment files.
+### Required Production Environment Variables
 
-Before pushing changes, verify that environment files are not tracked:
+Configure the required environment variables in the Vercel project settings.
 
-```bash
-git ls-files .env .env.local
+Important variables include:
+
+```text
+DATABASE_URL
+NEXTAUTH_SECRET
+NEXTAUTH_URL
+GEMINI_API_KEY
+BLOB_READ_WRITE_TOKEN
 ```
 
-The command should return nothing.
-
-> Never commit API keys, database passwords, authentication secrets, or other private credentials.
+The exact variables depend on the enabled services and authentication configuration.
 
 ---
 
-# Local Development
+## 📦 Resume Storage
 
-After cloning the repository, the typical workflow is:
+Resume uploads originally used the server's local filesystem.
+
+That approach works during local development but is not suitable for Vercel's serverless environment because deployed functions use a read-only filesystem for application files.
+
+The project therefore uses:
+
+```text
+User
+  ↓
+Resume Upload
+  ↓
+Next.js API Route
+  ↓
+PDF Validation
+  ↓
+Vercel Blob
+  ↓
+Blob Storage Path saved in PostgreSQL
+```
+
+This allows resume files to persist independently of individual serverless function executions.
+
+---
+
+## 🔒 Security Considerations
+
+Career Copilot includes several safeguards around resume uploads and user data.
+
+### Resume validation
+
+Uploaded files are checked for:
+
+* PDF MIME type
+* PDF magic bytes
+* Maximum file size
+* Authenticated user ownership
+
+### User-specific storage
+
+Resume files are stored using a user-specific path:
+
+```text
+userId/random-file-name.pdf
+```
+
+This prevents users from directly accessing another user's stored resume through the application's API.
+
+### Environment variables
+
+Sensitive credentials are stored through environment variables rather than being committed to source control.
+
+---
+
+## 🧪 API Overview
+
+The application exposes API routes for major career-workspace functionality.
+
+Examples include:
+
+```text
+/api/auth/*
+/api/dashboard
+/api/jobs
+/api/jobs/[id]
+/api/jobs/[id]/analyze
+/api/jobs/[id]/match
+/api/jobs/[id]/recommend
+/api/resumes
+/api/resumes/[id]/analyze
+/api/resumes/[id]/file
+/api/resumes/upload
+/api/applications
+/api/interview
+/api/onboarding
+/api/profile
+/api/roadmap
+/api/users/me/skills
+```
+
+These APIs connect the frontend with authentication, PostgreSQL, AI services, resume storage, and career-management functionality.
+
+---
+
+## 📄 Resume AI Analysis Flow
+
+```text
+Upload Resume
+      │
+      ▼
+Validate PDF
+      │
+      ▼
+Upload to Vercel Blob
+      │
+      ▼
+Save Storage Path in PostgreSQL
+      │
+      ▼
+Retrieve Resume
+      │
+      ▼
+Extract PDF Text using unpdf
+      │
+      ▼
+Send Resume Text to Gemini
+      │
+      ▼
+Structured AI Analysis
+      │
+      ├── Summary
+      ├── Skills
+      ├── Strengths
+      ├── Weaknesses
+      ├── Experience
+      ├── Education
+      └── Suggestions
+      │
+      ▼
+Save Detected Skills
+```
+
+---
+
+## 🎯 Project Goals
+
+Career Copilot is designed to reduce the fragmentation of the modern job-search process.
+
+Instead of using separate tools for:
+
+* Resume management
+* Job searching
+* Application tracking
+* Interview preparation
+* Skill tracking
+* Career planning
+
+Career Copilot brings these workflows together into one AI-powered workspace.
+
+---
+
+## 🚀 Future Improvements
+
+Potential future enhancements include:
+
+* Advanced job recommendation algorithms
+* Automated application tracking
+* Calendar-based interview scheduling
+* AI-generated cover letters
+* Resume optimization for individual job descriptions
+* ATS compatibility scoring
+* More detailed career analytics
+* GitHub and LinkedIn profile integration
+* Automated job alerts
+* Advanced interview simulations
+* Personalized learning recommendations
+* Multi-resume comparison
+* Resume version history
+
+---
+
+## 🧑‍💻 Development
+
+### Useful commands
 
 ```bash
-git clone https://github.com/nkinloop/career-copilot.git
-cd career-copilot
+# Install dependencies
 npm install
-```
 
-Configure your environment variables, set up PostgreSQL, and run:
+# Start development server
+npm run dev
 
-```bash
-npx prisma migrate deploy
+# Generate Prisma Client
 npx prisma generate
-npm run dev
-```
 
-The application will then be available at:
+# Update database schema
+npx prisma db push
 
-```text
-http://localhost:3000
-```
+# Open Prisma Studio
+npx prisma studio
 
----
-
-# Development Commands
-
-## Start Development Server
-
-```bash
-npm run dev
-```
-
-## Run Linter
-
-```bash
-npm run lint
-```
-
-## Create Production Build
-
-```bash
+# Production build
 npm run build
-```
 
-## Start Production Server
-
-```bash
+# Start production server
 npm start
-```
 
-## Apply Prisma Migrations
-
-```bash
-npx prisma migrate deploy
-```
-
-## Generate Prisma Client
-
-```bash
-npx prisma generate
-```
-
----
-
-# Known Limitations
-
-- Resume files currently use server-side filesystem storage.
-- Local filesystem storage is not ideal for horizontally scaled production deployments.
-- Production deployments should use persistent private/object storage for uploaded resumes.
-- AI features depend on the configured Gemini API and its usage limits.
-- Job availability depends on the job data sources configured by the application.
-- AI-generated content should be reviewed by users and should not be treated as authoritative career advice.
-- Rate limiting and additional production infrastructure can be added for larger-scale deployments.
-
----
-
-# Future Improvements
-
-Potential future improvements include:
-
-- Cloud-based private resume storage
-- Object storage integration
-- Background processing for resume analysis
-- Rate limiting for AI endpoints
-- Additional job data sources
-- Advanced job ranking and personalization
-- Automated resume improvement suggestions
-- More detailed career analytics
-- Improved job application tracking
-- Production deployment infrastructure
-- Automated testing
-- CI/CD pipeline
-- Enhanced AI personalization
-
----
-
-# Contributing
-
-Contributions and suggestions are welcome.
-
-For significant changes:
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Make your changes.
-4. Run the linter.
-5. Run the production build.
-6. Commit your changes.
-7. Open a pull request.
-
-Example:
-
-```bash
-git checkout -b feature/your-feature
+# Run lint
 npm run lint
-npm run build
-git add .
-git commit -m "feat: describe your change"
-git push origin feature/your-feature
 ```
 
 ---
 
-# License
+## 📌 Current Deployment
 
-This project is currently provided for **educational and portfolio purposes**.
+**Production:** https://ca4ee4.vercel.app
+
+**Repository:** https://github.com/nkinloop/career-copilot
 
 ---
 
-# Author
+## 👨‍💻 Author
 
 **Nishant Maurya**
 
-GitHub:  
-https://github.com/nkinloop
-
-Repository:  
-https://github.com/nkinloop/career-copilot
+Built as an AI-powered career management and job-search platform using modern full-stack technologies.
 
 ---
 
-## Disclaimer
+## ⭐ Acknowledgements
 
-Career Copilot provides AI-assisted career information and recommendations.
+Built with:
 
-AI-generated recommendations may contain inaccuracies and should be reviewed by the user before making career, employment, or application decisions.
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Prisma
+* PostgreSQL
+* Supabase
+* Vercel
+* Google Gemini
+* NextAuth
+* unpdf
+
+---
+
+## 📜 License
+
+This project is currently intended as a personal/portfolio project.
